@@ -15,7 +15,7 @@ if (isset($_POST['knop'])) {
         "omschrijving" => $omschrijving
     ]);
 
-    echo "product gevoegd!";
+    echo "Product toegevoegd!";
 }
 ?>
 
@@ -27,10 +27,11 @@ if (isset($_POST['knop'])) {
     <title>Product toevoegen</title>
 </head>
 <body>
+    <h1>Producten Toevoegen</h1>
     <form method="POST">
-        product naam: <input type="text" name="product_naam" required><br>
-        prijs per stuk: <input type="text" name="prijs_per_stuk" required><br>
-        omschrijving: <input type="text" name="omschrijving" required><br>
+        product naam: <input type="text" name="product_naam" placeholder="Product Naam" required><br>
+        prijs per stuk: <input type="text" name="prijs_per_stuk" placeholder="Prijs" required><br>
+        omschrijving: <input type="text" name="omschrijving" placeholder="Omschrijving" required><br>
         <button type="submit" name="knop">Submit</button>
     </form>
 </body>

@@ -23,7 +23,7 @@ $result = $producten->fetchAll();
             <th>Product Naam</th>
             <th>Prijs per stuk</th>
             <th>Omschrijving</th>
-            <th>Action</th>
+            <th colspan="2">Action</th>
         </tr>
 
         <?php

@@ -15,9 +15,9 @@ if (isset($_POST['knop'])) {
         "omschrijving" => $omschrijving,
         "product_code" => $product_code
     ];
-    $result->($placeholders);
+    $result->execute($placeholders);
     if ($result) {
-        echo "Product aangepast!"
+        echo "Product aangepast!";
         header("Refresh:3; url = select.php");
     } else {
         echo "Er is een fout opgetreden!";

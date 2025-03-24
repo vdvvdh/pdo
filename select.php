@@ -23,6 +23,7 @@ $result = $producten->fetchAll();
             <th>Product Naam</th>
             <th>Prijs per stuk</th>
             <th>Omschrijving</th>
+            <th>Action</th>
         </tr>
 
         <?php
@@ -32,6 +33,7 @@ $result = $producten->fetchAll();
             echo "<td>". $producten['product_naam']. "</td>";
             echo "<td>". $producten['prijs_per_stuk']. "</td>";
             echo "<td>". $producten['omschrijving']. "</td>";
+            echo "<td> <a href='update.php?product_code=". $producten['product_code']."'>Edit</a> </td>";
         echo "</tr>";
     }
 
@@ -40,3 +42,4 @@ $result = $producten->fetchAll();
     </table>
 </body>
 </html>
+

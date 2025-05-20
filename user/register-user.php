@@ -2,13 +2,14 @@
 
 require "../db-connection.php";
 
+$pdo = new DB();
 
 if (isset($_POST['knop'])) {
     try {
         $pdo->aanmelden($_POST['naam'], $_POST['email'], $_POST['wachtwoord'], $_POST['adres'], $_POST['telefoon']);
         echo "account aangemaakt";
     } catch (PDOException $e) {
-        echo $e;
+    echo "Fout bij aanmelden: " . $e->getMessage();
     }
 }
 

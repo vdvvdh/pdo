@@ -15,8 +15,8 @@ Class DB{
 
     public function aanmelden($naam, $email, $password, $adres, $telefoon){
         $hash = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = $this->pdo->prepare("INSERT into gebruikers (naam, email, password, adres, telefoon) VALUES (:naam, :email, :password, :adres, :telefoon)");
-        $stmt->execute(["naam" => $naam, "email" => $email, "password" => $hash, "adres" => $adres, "telefoon" => $telefoon]);
+        $stmt = $this->pdo->prepare("INSERT into gebruikers (naam, email, wachtwoord, adres, telefoon) VALUES (:naam, :email, :wachtwoord, :adres, :telefoon)");
+        $stmt->execute(["naam" => $naam, "email" => $email, "wachtwoord" => $hash, "adres" => $adres, "telefoon" => $telefoon]);
     }
 
 }

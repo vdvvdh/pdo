@@ -1,5 +1,4 @@
 <?php
-
 require "../db-connection.php";
 
 $pdo = new DB();
@@ -9,43 +8,41 @@ $success = "";
 $naam = $email = $wachtwoord = $adres = $telefoon = "";
 
 if (isset($_POST['knop'])) {
-    
     $naam = htmlspecialchars(($_POST['naam']));
     $email = htmlspecialchars(($_POST['email']));
     $wachtwoord = htmlspecialchars(($_POST['wachtwoord']));
     $adres = htmlspecialchars(($_POST['adres']));
     $telefoon = htmlspecialchars(($_POST['telefoon']));
 
+    if (empty($naam) || !preg_match('/^[a-zA-Z0-9]{3,}$/', $naam)){
+        $errors[] = "gebruikersnaam is verplicht en moet minstens 3 tekens bevatten (alleen letters/cijfers)";
+    }
+
+    if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)){
+        $errors[] = "ongeldig e-mailadres";
+    }
+
+    if (empty($wachtwoord)){
+        $errors[] = "wachtwoord is verplicht";
+    }
+
+    if (empty($adres)){
+        $errors[] = "adres is verplicht";
+    }
+
+    if (empty($telefoon) || !preg_match('/^[0-9]+$/', $telefoon)){
+        $errors[] = "tTelefoonnummer is verplicht en mag alleen cijfers bevatten";
+    }
+
     
-    if (empty($naam) || !preg_match('/^[a-zA-Z0-9]{3,}$/', $naam)) {
-        $errors[] = "Gebruikersnaam is verplicht en moet minstens 3 tekens bevatten (alleen letters/cijfers).";
-    }
-
-    if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Ongeldig e-mailadres.";
-    }
-
-    if (empty($wachtwoord)) {
-        $errors[] = "Wachtwoord is verplicht.";
-    }
-
-    if (empty($adres)) {
-        $errors[] = "Adres is verplicht.";
-    }
-
-    if (empty($telefoon) || !preg_match('/^[0-9]+$/', $telefoon)) {
-        $errors[] = "Telefoonnummer is verplicht en mag alleen cijfers bevatten.";
-    }
-
-    
-    if (empty($errors)) {
+    if (empty($errors)){
         try {
             $pdo->aanmelden($naam, $email, $wachtwoord, $adres, $telefoon);
-            $success = "Account succesvol aangemaakt!";
+            $success = "account succesvol aangemaakt!";
             
             $naam = $email = $wachtwoord = $adres = $telefoon = "";
         } catch (PDOException $e) {
-            $errors[] = "Fout bij aanmelden: " . $e->getMessage();
+            $errors[] = "fout bij aanmelden: " . $e->getMessage();
         }
     }
 }

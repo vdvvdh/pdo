@@ -3,13 +3,50 @@
 require "../db-connection.php";
 
 $pdo = new DB();
+$errors = [];
+$success = "";
+
+$naam = $email = $wachtwoord = $adres = $telefoon = "";
 
 if (isset($_POST['knop'])) {
-    try {
-        $pdo->aanmelden($_POST['naam'], $_POST['email'], $_POST['wachtwoord'], $_POST['adres'], $_POST['telefoon']);
-        echo "account aangemaakt";
-    } catch (PDOException $e) {
-    echo "Fout bij aanmelden: " . $e->getMessage();
+    
+    $naam = htmlspecialchars(($_POST['naam']));
+    $email = htmlspecialchars(($_POST['email']));
+    $wachtwoord = htmlspecialchars(($_POST['wachtwoord']));
+    $adres = htmlspecialchars(($_POST['adres']));
+    $telefoon = htmlspecialchars(($_POST['telefoon']));
+
+    
+    if (empty($naam) || !preg_match('/^[a-zA-Z0-9]{3,}$/', $naam)) {
+        $errors[] = "Gebruikersnaam is verplicht en moet minstens 3 tekens bevatten (alleen letters/cijfers).";
+    }
+
+    if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "Ongeldig e-mailadres.";
+    }
+
+    if (empty($wachtwoord)) {
+        $errors[] = "Wachtwoord is verplicht.";
+    }
+
+    if (empty($adres)) {
+        $errors[] = "Adres is verplicht.";
+    }
+
+    if (empty($telefoon) || !preg_match('/^[0-9]+$/', $telefoon)) {
+        $errors[] = "Telefoonnummer is verplicht en mag alleen cijfers bevatten.";
+    }
+
+    
+    if (empty($errors)) {
+        try {
+            $pdo->aanmelden($naam, $email, $wachtwoord, $adres, $telefoon);
+            $success = "Account succesvol aangemaakt!";
+            
+            $naam = $email = $wachtwoord = $adres = $telefoon = "";
+        } catch (PDOException $e) {
+            $errors[] = "Fout bij aanmelden: " . $e->getMessage();
+        }
     }
 }
 
@@ -45,9 +82,32 @@ if (isset($_POST['knop'])) {
         border-radius: 5px;
         cursor: pointer;
     }
+
+    .error {
+        color: red;
+        margin-bottom: 10px;
+    }
+
+    .success {
+        color: green;
+        margin-bottom: 10px;
+    }
 </style>
 <body>
-    <form method="POST" action="#">
+    <form method="POST" action="">
+        <?php
+        if (!empty($errors)) {
+            echo '<div class="error"><ul>';
+            foreach ($errors as $error) {
+                echo "<li>$error</li>";
+            }
+            echo '</ul></div>';
+        }
+
+        if ($success) {
+            echo "<div class='success'>$success</div>";
+        }
+        ?>
         <input type="text" name="naam" placeholder="username" required><br>
         <input type="email" name="email" placeholder="email" required><br>
         <input type="password" name="wachtwoord" placeholder="password" required><br>
@@ -57,3 +117,4 @@ if (isset($_POST['knop'])) {
     </form>
 </body>
 </html>
+

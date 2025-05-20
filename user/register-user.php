@@ -2,9 +2,10 @@
 
 require "../db-connection.php";
 
-if (isset($_POST['submit'])) {
+
+if (isset($_POST['knop'])) {
     try {
-        $pdo->aanmelden($_POST['naam'], $_POST['email'], $_POST['password']);
+        $pdo->aanmelden($_POST['naam'], $_POST['email'], $_POST['wachtwoord'], $_POST['adres'], $_POST['telefoon']);
         echo "account aangemaakt";
     } catch (PDOException $e) {
         echo $e;
@@ -26,6 +27,8 @@ if (isset($_POST['submit'])) {
         <input type="text" name="naam" placeholder="username" required><br>
         <input type="email" name="email" placeholder="email" required><br>
         <input type="password" name="wachtwoord" placeholder="password" required><br>
+        <input type="text" name="adres" placeholder="adres" required><br>
+        <input type="text" name="telefoon" placeholder="telefoon" required><br>
         <button type="submit" name="knop">Submit</button>
     </form>
 </body>

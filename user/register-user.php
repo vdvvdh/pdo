@@ -23,6 +23,29 @@ if (isset($_POST['knop'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    input{
+        width: auto;
+        padding: 10px;
+        margin: 8px 0;
+        border-radius: 5px;
+    }
+
+    button{
+        width: auto;
+        padding: 10px;
+        background-color: red;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
 <body>
     <form method="POST" action="#">
         <input type="text" name="naam" placeholder="username" required><br>

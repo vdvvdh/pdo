@@ -1,8 +1,11 @@
 <?php
 require "db-connection.php";
 
-$producten = $pdo->query("SELECT * FROM Producten");
+//verandering instantie van DB maken de PDO-verbinding uit het object halen
+$db = new DB(); 
+$pdo = $db->pdo;
 
+$producten = $pdo->query("SELECT * FROM Producten");
 $result = $producten->fetchAll();
 ?>
 

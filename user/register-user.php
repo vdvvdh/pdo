@@ -23,7 +23,7 @@ if (isset($_POST['submit'])) {
 </head>
 <body>
     <form method="POST" action="#">
-        <input type="name" name="naam" placeholder="username" required><br>
+        <input type="text" name="naam" placeholder="username" required><br>
         <input type="email" name="email" placeholder="email" required><br>
         <input type="password" name="wachtwoord" placeholder="password" required><br>
         <button type="submit" name="knop">Submit</button>

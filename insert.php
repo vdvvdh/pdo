@@ -1,6 +1,10 @@
 <?php
 require "db-connection.php";
 
+$db = new DB();
+$pdo = $db->pdo;
+
+
 if (isset($_POST['knop'])) {
     $product_naam = $_POST['product_naam'];
     $prijs_per_stuk = $_POST['prijs_per_stuk'];
